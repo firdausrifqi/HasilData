@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>DASS</title>
+  </head>
+
+  <body>
+    <!--=== header===-->
+    <header>
+      <nav class="container">
+        <div class="logo">
+          <img src="static\img\logo.png" alt="logo" />
+          <h3>Dass</h3>
+        </div>
+
+        <div class="link" id="nav-menu">
+          <ul>
+            <li><a href="#home" class="nav_link active-link">Home</a></li>
+            <li><a href="#about" class="nav_link">About</a></li>
+            <li><a href="#panduan" class="nav_link">Panduan</a></li>
+            <!--<li><a href="#masuk" class="nav_link">Masuk</a></li>
+            <li><a href="#daftar" class="btn">Daftar</a></li>-->
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main class="main">
+      <!--======Home============-->
+
+      <div class="row">
+        <div class="col-1">
+          <h1 class="home_title">
+            Ayo Tes Kesehatan <br />
+            Mental Kamu!
+          </h1>
+          <p class="home_description">
+            Kamu penasran dengan kondisi kesehatan mental kamu? Yuk ikuti test
+            berikut untuk mengetahui hasilnya!
+          </p>
+          <a href="{{ url_for('info') }}"><input class="btn" type="submit" value="Mulai Test"></a>
+        </div>
+        <div class="col-2">
+          <img
+            src="static\img\Personality disorder-pana.png"
+            alt=""
+            class="home_img"
+          />
+        </div>
+      </div>
+
+      <!--============About=================-->
+      <section class="about section container" id="about">
+        <div class="about_container grid">
+          <h1 class="about">About DASS</h1>
+          <p class="about_description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim
+            convallis tortor condimentum tempor cursus sit volutpat nisl. Nisi,
+            lacus aliquam varius bibendum neque, tortor etiam ultricies.
+            Consectetur ut nullam malesuada dignissim varius gravida massa eget.
+            Tristique euismod urna urna interdum lorem amet viverra. Lorem ipsum
+            dolor sit amet, consectetur adipiscing elit. Dignissim convallis
+            tortor condimentum tempor cursus sit volutpat nisl. Nisi,
+          </p>
+        </div>
+      </section>
+
+      <!--============ Alur Pengerjaan========-
+  <section class="alur section container" id="alur">
+    <div class="alur_bg">
+      <h1 class="alur">Alur Pengerjaan Test</h1>
+      </div>
+      <div class="Rectangle-3">
+        
+
+        <img
+          src="img/akar-icons-edit.png"
+          srcset="img/akar-icons-edit@2x.png 2x, img/akar-icons-edit@3x.png 3x"
+          class="akar-iconsedit"
+        />
+        <span class="Mulai-Test"> Mulai Test </span>
+        <img
+          src="img/ic-outline-assignment.png"
+          srcset="
+            img/ic-outline-assignment@2x.png 2x,
+            img/ic-outline-assignment@3x.png 3x
+          "
+          class="icoutline-assignment"
+        />
+        <span class="Kerjakan-test"> Kerjakan test </span>
+        <img
+          src="img/bi-clipboard-check.png"
+          srcset="
+            img/bi-clipboard-check@2x.png 2x,
+            img/bi-clipboard-check@3x.png 3x
+          "
+          class="biclipboard-check"
+        />
+        <span class="Lihat-Hasilnya"> Lihat Hasilnya </span>
+      </div>
+    
+  </section>
+-->
+
+      <!--Panduan test-->
+      <section class="panduan section container" id="panduan">
+        <div class="panduan_container grid">
+          <img
+            src="static\img\New year's resolutions-pana.png"
+            alt=""
+            class="panduan_img"
+          />
+          <div class="right">
+            <h1 class="panduan">Panduan Pengerjaan DASS Test</h1>
+            <p class="panduan_description">
+              1. Tidak ada jawaban yang benar atau salah. Silakan pilih jawaban
+              yang menggambarkan kondisi kamu sebenar-benarnya.
+            </p>
+            <p class="panduan_description">
+              2. Pengerjaan tes tidak dibatasi waktu sehingga kamu dapat
+              menggunakan waktumu semaksimal mungkin.
+            </p>
+            <p class="panduan_description">
+              3. ilakan mencari tempat yang nyaman dan kondusif selama kamu
+              mengerjakan tes supaya lebih fokus selama menjawab setiap
+              pertanyaannya.
+            </p>
+            <p class="panduan_description">
+              4. Jika kamu keluar di tengah tes, maka seluruh proses tes dan
+              jawaban akan hilang. Silakan mengisi ulang dari awal.
+            </p>
+            <p class="panduan_description">
+              5. Setelah mengisi semua pertanyaan dengan lengkap, kamu akan
+              mendapatkan hasilnya melalui email dalam bentuk report card. Mohon
+              ditunggu, ya!
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!--=============footer===========-->
+    <footer class="footer section">
+      <div class="footer_container container grid">
+        <div class="footer_content">
+          <h3 class="footer_title">DASS</h3>
+          <p class="footer_description">
+            Test kesehatan mental kamu sekarang juga!
+          </p>
+
+          <div class="footer__content">
+            <h3 class="footer__title">Our Address</h3>
+
+            <ul class="footer__data">
+              <li class="footer__information">1234 - Peru</li>
+              <li class="footer__information">La Libertad - 43210</li>
+              <li class="footer__information">123-456-789</li>
+            </ul>
+          </div>
+
+          <div class="footer__content">
+            <h3 class="footer__title">Contact Us</h3>
+
+            <ul class="footer__data">
+              <li class="footer__information">+999 888 777</li>
+
+              <div class="footer__social">
+                <a href="https://www.facebook.com/" class="footer__social-link">
+                  <i class="ri-facebook-fill"></i>
+                </a>
+                <a
+                  href="https://www.instagram.com/"
+                  class="footer__social-link"
+                >
+                  <i class="ri-instagram-line"></i>
+                </a>
+                <a href="https://twitter.com/" class="footer__social-link">
+                  <i class="ri-twitter-fill"></i>
+                </a>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!--=============== SCROLL UP ===============-->
+    <a href="#" class="scrollup" id="scroll-up">
+      <i class="ri-arrow-up-fill scrollup__icon"></i>
+    </a>
+  </body>
+</html>

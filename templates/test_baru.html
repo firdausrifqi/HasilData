@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='test.css') }}">
+    <title>DASS</title>
+</head>
+<body>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages%}
+            <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <h2 class="error">{{ msg }}</h2>
+             </div>
+            {% endfor%}
+        {% endif %}
+    {% endwith %}
+
+    <!--HEADER-->
+    <header>
+        <nav class="container">
+
+            <div class="logo">
+                <img src="asset\img\logo.png" alt="logo">
+                <p>Dass</p>
+            </div>
+        </nav>
+    </header>
+    <main class="main">
+        <!---home-->
+        <div class="container_home">
+            <div id="home" class="flex-center flex-column">
+                <h1>Depression, anxiety, stress test - DASS-42 Scale</h1>
+                <p>DASS1 : Please read each statement and click an answer which indicates how much the statement applied
+                    to you over the
+                    past week. There are no right or wrong answer</p>
+
+            </div>
+
+        </div>
+    </main>
+    <div class="container_soal">
+
+        <div class="justify-center flex-column">
+
+            <h3 style="display: inline-block;"> Pertanyaan ke {{question_num}}/{{total_num}}</h3>
+
+            {% if quest_num==2 %}
+                    <h2>{{question}}</h2>
+
+                    <form id="quest1" method="POST" action="/test">
+                        <label class=" radio-label">
+                        <input type="radio" class="rad-input" name="rad1" value="0">
+                        <div class="rad-design"></div>
+                        <div class="rad-text">Tidak Pernah</div>
+
+                        </label>
+
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad1" value="1">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Kadang-Kadang</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad1" value="2">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Lumayan Sering</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad1" value="3">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Sangat Sering</div>
+
+                        </label>
+                    <!--</form>-->
+
+
+                    <h2>{{ question1 }}</h2>
+
+                    <!-- <form id="quest2" method="POST" action="/test"> -->
+                        <label class=" radio-label">
+                        <input type="radio" class="rad-input" name="rad" value="0">
+                        <div class="rad-design"></div>
+                        <div class="rad-text">Tidak Pernah</div>
+
+                        </label>
+
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad" value="1">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Kadang-Kadang</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad" value="2">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Lumayan Sering</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad" value="3">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Sangat Sering</div>
+
+                        </label>
+
+                        <input class="btn" type="submit" value="Lanjut">
+
+                    </form>
+            {% else %}
+                    <h2>{{question}}</h2>
+
+                    <form id="quest1" method="POST" action="/test">
+                        <label class=" radio-label">
+                        <input type="radio" class="rad-input" name="rad1" value="0">
+                        <div class="rad-design"></div>
+                        <div class="rad-text">Tidak Pernah</div>
+
+                        </label>
+
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad1" value="1">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Kadang-Kadang</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad1" value="2">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Lumayan Sering</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad1" value="3">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Sangat Sering</div>
+
+                        </label>
+                    <!-- </form> -->
+
+
+                    <h2>{{ question1 }}</h2>
+
+                    <!-- <form id="quest2" method="POST" action="/test"> -->
+                        <label class=" radio-label">
+                        <input type="radio" class="rad-input" name="rad2" value="0">
+                        <div class="rad-design"></div>
+                        <div class="rad-text">Tidak Pernah</div>
+
+                        </label>
+
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad2" value="1">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Kadang-Kadang</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad2" value="2">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Lumayan Sering</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad2" value="3">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Sangat Sering</div>
+
+                        </label>
+                    <!-- </form> -->
+
+                    <h2>{{ question2 }}</h2>
+
+                    <!-- <form id="quest3" method="POST"> -->
+                        <label class=" radio-label">
+                        <input type="radio" class="rad-input" name="rad3" value="0">
+                        <div class="rad-design"></div>
+                        <div class="rad-text">Tidak Pernah</div>
+
+                        </label>
+
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad3" value="1">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Kadang-Kadang</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad3" value="2">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Lumayan Sering</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad3" value="3">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Sangat Sering</div>
+
+                        </label>
+
+                    <!-- </form> -->
+
+                    <h2>{{ question3 }}</h2>
+
+                    <!-- <form id="quest4" method="POST"> -->
+                        <label class=" radio-label">
+                        <input type="radio" class="rad-input" name="rad4" value="0">
+                        <div class="rad-design"></div>
+                        <div class="rad-text">Tidak Pernah</div>
+
+                        </label>
+
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad4" value="1">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Kadang-Kadang</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad4" value="2">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Lumayan Sering</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad4" value="3">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Sangat Sering</div>
+
+                        </label>
+
+                    <!-- </form> -->
+
+                    <h2>{{ question4 }}</h2>
+
+                    <!-- <form id="quest5" method="POST"> -->
+                        <label class=" radio-label">
+                        <input type="radio" class="rad-input" name="rad" value="0">
+                        <div class="rad-design"></div>
+                        <div class="rad-text">Tidak Pernah</div>
+
+                        </label>
+
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad" value="1">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Kadang-Kadang</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad" value="2">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Lumayan Sering</div>
+
+                        </label>
+
+                        <label class="radio-label">
+                            <input type="radio" class="rad-input" name="rad" value="3">
+                            <div class="rad-design"></div>
+                            <div class="rad-text">Sangat Sering</div>
+
+                        </label>
+
+
+                        <input class="btn" type="submit" value="Lanjut">
+
+
+                    </form>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>

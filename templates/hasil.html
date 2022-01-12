@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='hasil.css') }}">
+    <title>hasil</title>
+  </head>
+  <style>
+    table, th,td{
+      border: 1px solid black;
+    }
+  </style>
+
+  <body>
+    <!--HEADER-->
+    <header>
+      <nav class="container">
+        <div class="logo">
+          <img src="static\img\logo.png" alt="logo" />
+          <h3>Dass</h3>
+        </div>
+      </nav>
+    </header>
+
+    <main class="main">
+      <!--HASIL-->
+      <div class="container">
+        <div id="home" class="flex-center flex-column">
+          <h1>Hasil Tes DASS Kamu</h1>
+          <p>
+            Berikut adalah hasil screening kesehatan mental kamu dan disarankan
+            beberapa treatment dengan harapan bisa menjadi pertolongan pertama
+            kamu
+          </p>
+          <table>
+            <thead>
+              <th></th>
+              <th>score kamu</th>
+              <th>Tingkat Keparahan</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Depression</td>
+                <td>{{ questions['D_score'] }}</td>
+                <td>{{ questions['d_score'] }}</td>
+              </tr>
+              <tr>
+                <td>Anxiety</td>
+                <td>{{ questions['A_score'] }}</td>
+                <td>{{ questions['a_score'] }}</td>
+              </tr>
+              <tr>
+                <td>Stress </td>
+                <td>{{ questions['S_score'] }}</td>
+                <td>{{ questions['s_score'] }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-----------DEPRESIIIIIIIII-->
+          <div class="thing factor">
+            <h3 style="display: inline;">DEPRESI</h3>
+            <h3 class='score' style="display: inline;">{{ questions['D_score'] }}</h3>
+            <p><i>Depresi</i> ditandai dengan keterlibatan yang nyata dengan dunia luar</p>
+          </div
+
+<br>
+
+          <div class="thing factor">
+            <h3 style="display: inline;">ANXIETY</h3>
+            <h3 class='score' style="display: inline;">{{ questions['A_score'] }}</h3>
+            <p><i>anxiety/kecemasan</i> ditandai dengan keterlibatan yang nyata dengan dunia luar</p>
+          </div>
+
+        <div class="thing factor">
+            <h3 style="display: inline;">STRESS</h3>
+            <h3 class='score' style="display: inline;">{{ questions['S_score'] }}</h3>
+            <p><i>stress</i> ditandai dengan keterlibatan yang nyata dengan dunia luar</p>
+        </div>
+          <div class="thing treatment">
+                <p style="display: inline;">Wah, kamu punya potensi untuk bekerja di bidang </p>
+                <h3 class="job r-link animated-underline animated-underline_type1 news_link" style="display: inline;">{{ prediction }}</h3>
+                <p style="display: inline;"> seperti <b>{{ explain }}.</b></p>
+            </div>
+
+
+
+
+
+
+
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

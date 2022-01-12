@@ -1,0 +1,265 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+:root {
+  --header-height: 3.5rem; /*56px*/
+
+  /*====COLORS====*/
+  --first-color: #FF725E;
+  --first-color-alt: #ee604e;
+  --title-color:#293241;
+  --text-color:#455A64;
+  --text-color-light:#73848D;
+  --body-color:#fff;
+  --container-color:#fff;
+
+  /*=====font and typography===*/
+  --body-font:'poppins',sans-serif;
+  --body-font: 'Poppins', sans-serif;
+  --big-font-size: 2rem;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: .938rem;
+  --small-font-size: .813rem;
+  --smaller-font-size: .75rem;
+
+  /*========== Font weight ==========*/
+  --font-medium: 500;
+  --font-semi-bold: 600;
+  --font-regular:150;
+  --font-extra-bold:800;
+
+  /*========== Margenes Bottom ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --mb-0-5: .5rem;
+  --mb-0-75: .75rem;
+  --mb-1: 1rem;
+  --mb-1-5: 1.5rem;
+  --mb-2: 2rem;
+  --mb-2-5: 2.5rem;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/* Responsive typography 
+@media screen and (min-width: 968px) {
+  :root {
+    --big-font-size: 3.5rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+  }
+} */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+body,
+button,
+input,
+textarea{
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+}
+
+body{
+  
+  background-color: var(--body-color);
+  color: var(--text-color);
+ font-family: "poppins", sans-serif;
+}
+
+
+
+ul{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+}
+
+img{
+  max-width: 100%;
+  
+}
+
+
+.section__title,
+.section__title-center{
+  font-size: var(--h2-font-size);
+  margin-bottom: var(--mb-2);
+  line-height: 140%;
+}
+
+.section__title-center{
+  text-align: center;
+}
+
+.container{
+  max-width: 1200px;
+  margin-left: var(--mb-2-5);
+  margin-right: var(--mb-2-5);
+}
+.grid{
+  display: grid;
+}
+
+/*header*/
+header{
+  width: 100%;
+  height: 60px;
+
+  background-color: rgb(255, 255, 255);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 70;
+}
+header .container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.logo img{
+  width: 40px;
+  margin-right: 0.6rem;
+  margin-top: -0.6rem;
+}
+.logo h3{
+  color: #293241;
+  font-size: 1.55rem;
+  line-height: 1.2;
+}
+/*Navbar*/
+.nav{
+ height: var(--header-height);
+ justify-content: space-between;
+  display: flex;
+  align-items: center;
+  text-align: right;
+}
+.link ul{
+  display: flex;
+  list-style: none;
+  align-items: center;
+
+}
+.link a{
+  color:#455A64;
+  margin-left: 4.5rem;
+  margin-top: 0.5rem;
+  display: inline-block;
+  transition: 0.3s;
+}
+.link a:hover{
+  color: #FF725E;
+  transition: scale(1.05rem);
+}
+
+.btn{
+display: inline-block;
+padding: 0.6rem 1.9rem;
+color:#fff !important;
+background-color: #FF725E;
+border-radius: 10px;
+text-transform: capitalize;
+transition: 0.3s;
+align-items: center;
+}
+.btn:hover{
+  background-color:var(--first-color-alt);
+  transform:scale(1) !important;
+
+}
+/*==============HOME=================*/
+.row{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  justify-content: center;
+  align-items: center;
+  
+  margin-left: var(--mb-2-5);
+
+}
+.col-1{
+  flex-basis: 30%;
+  position: relative;
+}
+.col-1 h1{
+  font-size:36px;
+  color:#293241;
+  font-weight: 100px;
+
+}
+.col-1 p{
+    font-size: var(--font-regular);
+    color: #c1c4c7;
+    margin: 20px 0 20px 0;
+}
+
+.col-2{
+  position: relative;
+  flex-basis: 70%;
+  display: flex;
+  align-items: center;
+}
+.col-2 .home_img{
+  width: 150%;
+
+}
+/*====About====*/
+.about_container {
+display: grid;
+  justify-content: center;
+  align-items: center;
+ 
+}
+.about h1 {
+  font-size:32px;
+  margin-bottom: var(--mb-2);
+  line-height: 140%;
+  text-align: center;
+  color: #293241;
+  }
+  .about_description{
+       font-size:18px;
+  line-height: 140%;
+  text-align: center;
+  color: #7d7d7d;
+  }
+
+/*panduannn*/
+.panduan_container{
+    row-gap: 2rem;
+}
+
+
+.panduan__img{
+  width: 280px;
+  justify-self: center;
+}
+.panduan h1{
+  margin-bottom: var(--mb-1);
+}
+.panduan_description p{
+ display: grid;
+  row-gap: 1rem;
+  margin-bottom: var(--mb-2-5);
+}
