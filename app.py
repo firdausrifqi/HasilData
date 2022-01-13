@@ -271,7 +271,7 @@ def hasil():
 
 def update_to_sql(dat1,dat2,dat3,dat4,dat5,dat6,dat7,dat8):
     mydb = mysql.connector.connect(
-        host="127.0.0.1",
+        host="firdausr@localhost",
         user="root",
         password="",
         database="hasiltest"
@@ -297,15 +297,15 @@ def test():
         answer3 = request.form.get('rad3')
         answer4 = request.form.get('rad4')
         if not answer:
-            return test()
+            flash('Pertanyaan pertama belum dijawab', 'error')
         elif not answer1:
-            return test()
+            flash('Pertanyaan kedua belum dijawab', 'error')
         elif not answer2 and total < 2:
-            return test()
+            flash('Pertanyaan ketiga belum dijawab', 'error')
         elif not answer3 and total < 2:
-            return test() 
+            flash('Pertanyaan keempat belum dijawab', 'error')
         elif not answer4 and total < 2:
-            return test()  
+            flash('Pertanyaan kelima belum dijawab', 'error')
         else:
             if answer:
                 dass.add_score(int(answer))

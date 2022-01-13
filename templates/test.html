@@ -9,18 +9,6 @@
     <title>DASS</title>
 </head>
 <body>
-
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for msg in messages%}
-            <div class="alert">
-                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                <h2 class="error">{{ msg }}</h2>
-             </div>
-            {% endfor%}
-        {% endif %}
-    {% endwith %}
-
     <!--HEADER-->
     <header>
         <nav class="container">
@@ -44,6 +32,20 @@
             </div>
 
         </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages%}
+                <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Danger!</strong> {{msg}}
+                </div>
+                <!-- <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <h2 class="error">{{ msg }}</h2>
+                </div> -->
+                {% endfor%}
+            {% endif %}
+        {% endwith %}
     </main>
     <div class="container_soal">
 
