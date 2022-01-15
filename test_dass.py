@@ -1,13 +1,22 @@
 from question import Question
+import mysql.connector
 
 
 class DASS:
+
     def __init__(self):
+        self.mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="hasiltest"
+        )
         self.question_num = 0
         self.D_score = 0
         self.A_score = 0
         self.S_score = 0
         self.total = 0
+        self.nama = ""
 
         self.question_bank =[
         Question('Saya merasa bahwa diri saya menjadi marah karena hal-hal sepele','S'),
@@ -54,18 +63,71 @@ class DASS:
         Question('Saya merasa sulit untuk meningkatkan inisiatif dalam melakukan sesuatu','D'),
         ]
 
-    def next_question(self):
+    def getalldata(self,ip, hasil = False):
+        mycursor = self.mydb.cursor()
+        ketemu = False
+        sql = "SELECT * from user"
+
+        mycursor.execute(sql)
+        # get all records
+        records = mycursor.fetchall()
+        #print(records)
+        mycursor.close()
+        for find in records:
+            if ip == find[0] and find[6]==0:
+                ketemu = True
+                self.total = find[1]
+                self.question_num = find[2]
+                self.D_score = find[3] #D_Score
+                self.A_score = find[4] #A_Score
+                self.S_score = find[5] #S_Score
+                self.nama = find[7]
+        if not ketemu and not hasil:
+            cur = self.mydb.cursor()
+            cur.execute("INSERT INTO user (IP) VALUES (%s)", (
+                ip,
+            ))
+            self.mydb.commit()
+            cur.close()
+            self.getalldata(ip)
+        records.clear()
+
+    def sendValue(self,quest_num,D_Score,A_Score,S_Score,Total):
+        self.question_num = quest_num
+        self.D_score = D_Score
+        self.A_score = A_Score
+        self.S_score = S_Score
+        self.total = Total
+
+    def next_question(self,ip):
         if (self.question_num < len(self.question_bank) - 5):
             self.question_num += 5
+            print("Self Quest Num: ", str(self.question_num))
+            cur = self.mydb.cursor()
+            cur.execute("UPDATE user SET Quest_num=%s WHERE IP=%s AND Hasil= 0", (
+                self.question_num,ip,
+            ))
+            self.mydb.commit()
+            cur.close()
+            mycursor = self.mydb.cursor()
+
+            sql = "SELECT * from user"
+
+            mycursor.execute(sql)
+            # get all records
+            records = mycursor.fetchall()
+            print(records)
+            mycursor.close()
 
 
     def get_question_text(self,num):
         return self.question_bank[self.question_num + num].item
 
-    def get_score(self):
-        return self.D_score, self.A_score, self.S_score
+    def get_score(self,ip):
+        self.getalldata(ip, True)
+        return self.D_score, self.A_score, self.S_score, self.nama
 
-    def add_score(self, answer):
+    def add_score(self, answer,ip):
         self.total += 1
         if answer == 0:
             if self.question_bank[self.question_num].label == 'D':
@@ -95,10 +157,22 @@ class DASS:
                 self.A_score += 3
             elif self.question_bank[self.question_num].label == 'S':
                 self.S_score += 3
+        curs = self.mydb.cursor()
+        curs.execute("UPDATE user SET Total_Jawaban=%s,D_Score=%s, A_Score=%s,S_Score=%s WHERE IP=%s AND Hasil= 0", (
+            self.total, self.D_score,self.A_score,self.S_score,ip,
+        ))
+        self.mydb.commit()
+        curs.close()
         #return(self.D_score, self.A_score, self.)
-    def is_finished(self):
+    def is_finished(self,ip):
         if self.total == len(self.question_bank):
             print("Now returning true")
+            curs = self.mydb.cursor()
+            curs.execute("UPDATE user SET Hasil=%s WHERE IP=%s AND Hasil= 0", (
+                1,ip,
+            ))
+            self.mydb.commit()
+            curs.close()
             return True
         else:
             print("Pertanyaan yang sudah dijawab: " + str(self.total))
@@ -106,3 +180,8 @@ class DASS:
 
     def reset(self):
         self.question_num = 0
+        self.question_num = 0
+        self.D_score = 0
+        self.A_score = 0
+        self.S_score = 0
+        self.total = 0

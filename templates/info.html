@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='info.css') }}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='info.css') }}"
+    />
     <title>DASS</title>
   </head>
 
@@ -24,16 +28,35 @@
       <div class="container">
         <div id="home" class="flex-center flex-column">
           <h1>Depression, anxiety, stress test - DASS-42 Scale</h1>
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages%}
+                <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Danger!</strong> {{msg}}
+                </div>
+                <!-- <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <h2 class="error">{{ msg }}</h2>
+                </div> -->
+                {% endfor%}
+            {% endif %}
+          {% endwith %}
           <p>
             Disclaimer! Test ini hanya untuk melihat tingkat distres yang kamu
             alami, tidak untuk mendiagnosis. <br />
             Treatment yang diberikan bersifat sementara dengan harapan dapat
-            mengurangi tingkat distres yang kamu alami :) Semua item soal dan
+            mengurangi tingkat distres yang kamu alami 🙂 Semua item soal dan
             treatment sudah di validasi oleh psikolog, jadi tes ini aman dan
             ingat jangan self diagnosis
           </p>
-          <a href="{{ url_for('test') }}" class="btn">Mulai<img src="static\img\right-arrows.png"
-          /></a>
+
+          <form class="flex-center flex-column" method="POST" action="/info">
+            <h2 class="titleform">Isi nama dulu ya</h2>
+            <label class="titlelabel">Nama: </label>
+            <input class="ovalinput" type="text" name="username" placeholder="username..." />
+            <input class="btn" type="submit" value="Mulai">
+          </form>
         </div>
       </div>
     </main>

@@ -17,19 +17,54 @@ questions['D_score'] = 0
 questions['A_score'] = 0
 questions['S_score'] = 0
 questions['current_q'] = 1
+questions['nama'] = ""
 
 dass = DASS()
+
+mydb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="hasiltest"
+    )
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
     return render_template('index.html')
 
-@app.route('/info')
+@app.route('/info' , methods=['POST', 'GET'])
 def info():
-    return render_template('info.html')
+    ip_addr = request.remote_addr
+    if request.method == 'POST':
+        answer = request.form.get('username')
+        if not answer:
+            flash('Nama Harus DIISI YAAAAA', 'error')
+        else:
+            
+            print(ip_addr)
+            ketemu = False
+            mycursor = mydb.cursor()
+
+            sql = "SELECT * from user"
+
+            mycursor.execute(sql)
+            # get all records
+            records = mycursor.fetchall()
+            print(records)
+            mycursor.close()
+            for find in records:
+                if ip_addr == find[0] and find[6]==0:
+                    ketemu = True
+                
+            if not ketemu :
+                insertsql(ip_addr,answer)
+
+            return redirect(url_for('test'))
+    return render_template('info.html',ip_addr=ip_addr)
 
 @app.route('/hasil', methods=['GET'])
 def hasil():
+    ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
     final_features = np.array([questions['D_score'],  questions['A_score'], questions['S_score']])
     prediction = nb_model.predict([final_features])
     if prediction[0] == 'A':
@@ -262,33 +297,19 @@ def hasil():
         questions['s_score'] = "sangat parah"
 
     dass = DASS()
-    update_to_sql(questions['D_score'],questions['A_score'],questions['S_score'],questions['d_score'],questions['a_score'],questions['s_score'],prediction,explain)
+    update_to_sql(ip_addr,questions['nama'],questions['D_score'],questions['A_score'],questions['S_score'],questions['d_score'],questions['a_score'],questions['s_score'],prediction,explain)
+    dass.reset()
     return render_template('hasil.html', 
     questions=questions, 
     prediction=prediction, 
-    explaim=explain,
+    explaim=explain,ip_addr=ip_addr
     )
-
-def update_to_sql(dat1,dat2,dat3,dat4,dat5,dat6,dat7,dat8):
-    mydb = mysql.connector.connect(
-        host="firdausr@localhost",
-        user="root",
-        password="",
-        database="hasiltest"
-    )
-
-    mycursor = mydb.cursor()
-
-    sql = "INSERT INTO depresi (Score_Depresi, Score_Anxiety, Score_Stress, TK_Depresi, TK_Anxiety, TK_Stress, Prediksi, Penjelasan) VALUES (%s, %s,%s, %s,%s, %s,%s,%s)"
-    val = (dat1,dat2,dat3,dat4,dat5,dat6,dat7,dat8)
-
-    mycursor.execute(sql, val)
-
-    mydb.commit()
 
 
 @app.route('/test', methods=['POST', 'GET'])
 def test():
+    ip_addr = request.environ['REMOTE_ADDR']
+    dass.getalldata(ip_addr)
     total = dass.total
     if request.method == 'POST':
         answer = request.form.get('rad')
@@ -300,31 +321,32 @@ def test():
             flash('Pertanyaan pertama belum dijawab', 'error')
         elif not answer1:
             flash('Pertanyaan kedua belum dijawab', 'error')
-        elif not answer2 and total < 2:
+        elif not answer2 and total < 40:
             flash('Pertanyaan ketiga belum dijawab', 'error')
-        elif not answer3 and total < 2:
+        elif not answer3 and total < 40:
             flash('Pertanyaan keempat belum dijawab', 'error')
-        elif not answer4 and total < 2:
+        elif not answer4 and total < 40:
             flash('Pertanyaan kelima belum dijawab', 'error')
         else:
             if answer:
-                dass.add_score(int(answer))
+                dass.add_score(int(answer),ip_addr)
             if answer1:
-                dass.add_score(int(answer1))    
+                dass.add_score(int(answer1),ip_addr)    
             if answer2:
-                dass.add_score(int(answer2))
+                dass.add_score(int(answer2),ip_addr)
             if answer3:
-                dass.add_score(int(answer3))
+                dass.add_score(int(answer3),ip_addr)
             if answer4:
-                dass.add_score(int(answer4))
+                dass.add_score(int(answer4),ip_addr)
             
-            dass.next_question()
+            dass.next_question(ip_addr)
         
-        if dass.is_finished():
-            questions['D_score'],  questions['A_score'], questions['S_score'] = dass.get_score()
+        if dass.is_finished(ip_addr):
+            questions['D_score'],  questions['A_score'], questions['S_score'], questions['nama'] = dass.get_score(ip_addr)
             return redirect(url_for('hasil'))
     qnum = 42
     quest = dass.question_num
+    print(quest)
     qnum = qnum - quest
     if(qnum == 2):
         return render_template('test.html',
@@ -332,7 +354,7 @@ def test():
                             question_num=dass.question_num + 2,
                             total_num=len(dass.question_bank),
                             question=dass.get_question_text(0),
-                            question1=dass.get_question_text(1)) 
+                            question1=dass.get_question_text(1),ip_addr=ip_addr) 
     else:
         return render_template('test.html',
                                 quest_num=qnum,
@@ -342,7 +364,26 @@ def test():
                                 question1=dass.get_question_text(1),
                                 question2=dass.get_question_text(2),
                                 question3=dass.get_question_text(3),
-                                question4=dass.get_question_text(4))
+                                question4=dass.get_question_text(4),ip_addr=ip_addr)
 
+#MYSQL FUNCTION
+def insertsql(ip,nama):
+    cur = mydb.cursor()
+    cur.execute("INSERT INTO user (IP,nama) VALUES (%s,%s)", (
+        ip,nama
+    ))
+    mydb.commit()
+
+def update_to_sql(dat0,dat1,dat2,dat3,dat4,dat5,dat6,dat7,dat8,dat9):
+    mycursor = mydb.cursor()
+
+    sql = "INSERT INTO depresi (IP,nama,Score_Depresi, Score_Anxiety, Score_Stress, TK_Depresi, TK_Anxiety, TK_Stress, Prediksi, Penjelasan) VALUES (%s,%s, %s,%s, %s,%s, %s,%s,%s,%s)"
+    val = (dat0,dat1,dat2,dat3,dat4,dat5,dat6,dat7,dat8,dat9)
+
+    mycursor.execute(sql, val)
+
+    mydb.commit()
+
+#SETTING HOST
 if __name__ == "__main__":
-   app.run(debug=True, use_reloader=True)
+   app.run(host="0.0.0.0", port = 80)
